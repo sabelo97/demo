@@ -2,6 +2,8 @@
 #define KRED  "\x1B[31m"
 #define KNRM  "\x1B[0m"
 #define KGRN  "\x1B[32m"
+#include <time.h>
+
 
 int isAvailable(int puzzle[][9], int row, int col, int num)
 {
@@ -28,7 +30,6 @@ int fillSudoku(int puzzle[][9], int row, int col)
         {
             if((col+1)<9) return fillSudoku(puzzle, row, col+1);
             else if((row+1)<9) return fillSudoku(puzzle, row+1, 0);
-            
             else return 1;
         }
         else
@@ -56,24 +57,23 @@ int fillSudoku(int puzzle[][9], int row, int col)
     }
     else return 1;
 }
-
-int main()
+int out()
 {
     int i, j, g = 0;
     int VERBOSE = 0;
-    
-    int puzzle[9][9]={{0, 0, 8, 0, 9, 0, 0, 5, 0},
-                      {0, 1, 0, 0, 6, 5, 0, 0, 4},
-                      {4, 0, 5, 0, 0, 0, 2, 0, 9},
-                      {7, 3, 0, 0, 5, 0, 1, 0, 8},
-                      {5, 0, 2, 0, 0, 0, 4, 0, 7},
-                      {1, 0, 4, 0, 3, 0, 0, 9, 6},
-                      {8, 0, 1, 0, 0, 0, 7, 0, 2},
-                      {3, 0, 0, 1, 8, 0, 0, 4, 0},
-                      {0, 4, 0, 0, 2, 0, 3, 0, 0}};
+
+    int puzzle[9][9]={{0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
 
-    printf("%sDo you want  verbose output? (show all the tries I have made)\n\n 1 = yes\n 0 = no\n", KGRN);
+    printf("%sDo you want  verbose output? (show all the tries I have made)\n\n 1 = yes\n 0 = no\n\n ", KGRN);
     scanf("%d", &VERBOSE);
 
     printf("%syour original unsolved puzzle is:\n\n", KRED);
@@ -83,7 +83,8 @@ int main()
     { 
         for(j=1; j<10; ++j) printf("|%d", puzzle[i-1][j-1]);
         printf("|\n");
-        if (i%3 == 0) printf("+-----+-----+-----+\n\n");
+        if (i%3 == 0) printf("+-----+-----+-----+\n");
+        if (i%9 == 0) printf("\n");
     }
 
     if (VERBOSE == 1)
@@ -91,30 +92,44 @@ int main()
 
         for (g = 0; g < 10; ++g)
         {
-        if(fillSudoku(puzzle, 1 > 10, 1>10 ))
+        if(fillSudoku(puzzle, 1, 1));
         {
             printf("%syour puzzle so far is: \n", KRED);
-            printf("%s\n+-----+-----+-----+\n", KNRM);
+            printf("%s\n+-----+-----+-----+ \n", KNRM);
             for(i=1; i<10; ++i)
             {
                 for(j=1; j<10; ++j) printf("|%d", puzzle[i-1][j-1]);
                 printf("|\n");
-                if (i%3 == 0) printf("+-----+-----+-----+\n\n");
+                if (i%3 == 0) printf("+-----+-----+-----+\n");
+                if (i%9 == 0) printf("\n");
             }
         }}}
-
     if(fillSudoku(puzzle, 0, 0))
     {
-        printf("%sthe solved puzzle is: \n", KRED);
+        printf("%sDONE!!!! The solved puzzle is: \n", KRED);
         printf("%s\n+-----+-----+-----+\n", KNRM);
         for(i=1; i<10; ++i)
         {
             for(j=1; j<10; ++j) printf("|%d", puzzle[i-1][j-1]);
             printf("|\n");
             if (i%3 == 0) printf("+-----+-----+-----+\n");
+            if (i%9 == 0) printf("\n");
         }
     }
     else printf("\n\nNO SOLUTION\n\n");
 
     return 0;
 }
+
+int main()
+{
+    clock_t t;
+    t = clock();
+    out();
+    t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC; 
+ 
+    printf("%sI took took %f seconds to execute, I'm getting rusty\n\n",KRED, time_taken);
+    return 0;
+}
+
