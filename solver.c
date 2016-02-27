@@ -15,12 +15,12 @@ NOTE! that only libraries that are in the standard c lib is #include <whatever> 
 #define KRED  "\x1B[31m"
 #define KNRM  "\x1B[0m"
 #define KGRN  "\x1B[32m"
-
+#include <time.h>
 /* this is the start of the program every time you see a { it is the start of a "block" of code, and } is the end of a block of code
  notice that the line below is "int isAvailable" that is the start of a function, the function name is "isAvailable"
 afte that you see (int puzzle[][9]) this is the deceleration of a integer with the name puzzle and it can hold up to 9 characters this is called memory management, some languages do it for you, C doesn't,
  after that the integers row, col and num are created. anything starting with int "name" is the deceleration of a integer.
-intergars are just that, they only hold whole numbers (0123456789....) no decimal places and no other characters */
+integers are just that, they only hold whole numbers (0123456789....) no decimal places and no other characters */
 
 int isAvailable(int puzzle[][9], int row, int col, int num)
 {
@@ -89,7 +89,7 @@ int fillSudoku(int puzzle[][9], int row, int col)
     else return 1;
 }
 /* this is the main function. when you compile and run your code, the program will always start with the main function. ALWAYS! */
-int main()
+int out()
 {
     int i, j, g = 0;
     int VERBOSE = 0;
@@ -97,19 +97,19 @@ int main()
      so why use integers if you can just use arrays?
     integers take less memory, everything you declare takes up space, so if you making a big program with 1000s of arrays, it will take alot of mem, that [9] is the memory to take, look at it as a box 
     the [9] is the size of the box. and the digits are stuff in the box*/
-    int puzzle[9][9]={{0, 0, 8, 0, 9, 0, 0, 5, 0},
-                      {0, 1, 0, 0, 6, 5, 0, 0, 4},
-                      {4, 0, 5, 0, 0, 0, 2, 0, 9},
-                      {7, 3, 0, 0, 5, 0, 1, 0, 8},
-                      {5, 0, 2, 0, 0, 0, 4, 0, 7},
-                      {1, 0, 4, 0, 3, 0, 0, 9, 6},
-                      {8, 0, 1, 0, 0, 0, 7, 0, 2},
-                      {3, 0, 0, 1, 8, 0, 0, 4, 0},
-                      {0, 4, 0, 0, 2, 0, 3, 0, 0}};
+    int puzzle[9][9]={{0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 /* the printf command is to print text out on the screen the \n is a command, \n means new line, if this was not there, the whole program will be on one line, there are others like \t is tab
- and the KRED is to specify the color, in this case its red. we defined these at the beggining of the code. */
+ and the KRED is to specify the color, in this case its red. we defined these at the beginning of the code. */
 
-    printf("%sDo you want  verbose output? (show all the tries I have made)\n\n 1 = yes\n 0 = no\n", KGRN);
+    printf("%sDo you want  verbose output? (show all the tries I have made)\n\n 1 = yes\n 0 = no\n\n ", KGRN);
     scanf("%d", &VERBOSE);
 
     /* the above is asking if the user want to see all the tries made or not and via the scanf command it assigns the number to VERBOSE that we declared earlier. the %s is to wait for string input that 
@@ -120,10 +120,11 @@ int main()
     printf("%s\n+-----+-----+-----+\n", KNRM);
 
     for(i=1; i<10; ++i)
-    { /* here you see %d this is like saying just hold up, ill tell you what you need to put there now now, at the end of this line you see , puzzle [i-1][j-1] the value of puzzle is then outputed in the place of %d*/
+    { /* here you see %d this is like saying just hold up, ill tell you what you need to put there now now, at the end of this line you see , puzzle [i-1][j-1] the value of puzzle is then outputted in the place of %d*/
         for(j=1; j<10; ++j) printf("|%d", puzzle[i-1][j-1]);
         printf("|\n");
-        if (i%3 == 0) printf("+-----+-----+-----+\n\n");
+        if (i%3 == 0) printf("+-----+-----+-----+\n");
+        if (i%9 == 0) printf("\n");
     }
 
     if (VERBOSE == 1)
@@ -134,29 +135,43 @@ int main()
         if(fillSudoku(puzzle, 1, 1));
         {
             printf("%syour puzzle so far is: \n", KRED);
-            printf("%s\n+-----+-----+-----+\n", KNRM);
+            printf("%s\n+-----+-----+-----+ \n", KNRM);
             for(i=1; i<10; ++i)
             {
                 for(j=1; j<10; ++j) printf("|%d", puzzle[i-1][j-1]);
                 printf("|\n");
-                if (i%3 == 0) printf("+-----+-----+-----+\n\n");
+                if (i%3 == 0) printf("+-----+-----+-----+\n");
+                if (i%9 == 0) printf("\n");
             }
         }}}
     if(fillSudoku(puzzle, 0, 0))
     {
-        printf("%sthe solved puzzle is: \n", KRED);
+        printf("%sDONE!!!! The solved puzzle is: \n", KRED);
         printf("%s\n+-----+-----+-----+\n", KNRM);
         for(i=1; i<10; ++i)
         {
             for(j=1; j<10; ++j) printf("|%d", puzzle[i-1][j-1]);
             printf("|\n");
             if (i%3 == 0) printf("+-----+-----+-----+\n");
+            if (i%9 == 0) printf("\n");
         }
     }
     else printf("\n\nNO SOLUTION\n\n");
 
     return 0;
 }
+/* I renamed the functions in order to get the timer working. */
+int main()
+{
+    clock_t t;
+    t = clock();
+    out();
+    t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC; 
+ 
+    printf("%sI took took %f seconds to execute, I'm getting rusty\n\n",KRED, time_taken);
+    return 0;
+}
 
-/* if you didint get what this code does its a sudoku game solver, it takes the array of numbers in puzzle on line 98 nad works it out, Test yourself... go to the Un commented source code and try to read
+/* if you did not get what this code does its a sudoku game solver, it takes the array of numbers in puzzle on line 98 nad works it out, Test yourself... go to the Un commented source code and try to read
 AND understand it */
