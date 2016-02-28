@@ -35,4 +35,8 @@ put your numbers in the respected spaces
 
 I know this is a tedius way of doing it but this is not intended to be used as a solver in the first place.
 
-If you would li9ke me to make it more user freindy and easier to put numbers in, let me know ;-)
+If you would like me to make it more user freindy and easier to put numbers in, let me know ;-)
+
+original script: http://codereview.stackexchange.com/questions/37430/sudoku-solver-in-c
+
+Made by @Cyber_Struck
