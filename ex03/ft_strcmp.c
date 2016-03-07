@@ -12,19 +12,21 @@
 
 int     ft_strcmp(char *s1, char *s2)
 {
-    int index;
-
-    index = 0;
-    while (index > s1 && index > s2)
+    while (*s1 == *s2)
     {
-
+        if (*s1 == '\0')
+            {
+                return 0;
+            }
+        s1++;
+        s2++;
     }
-}
-
-int main()
-{
-    char s1[] = "hello";
-    char s2[] = "DONE";
-
-    ft_strcmp(s1, s2);
+    if (*(unsigned char *)s1 < *(unsigned char *)s2)
+        {
+            return -1;
+        }
+    else
+        {
+             return +1;
+        }
 }
