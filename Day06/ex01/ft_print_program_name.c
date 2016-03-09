@@ -12,5 +12,5 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	ft_putchar('\n');
-	return 0;
+	return (0);
 }
